@@ -1,0 +1,53 @@
+name: noobzz CI/CD/DEV
+
+on: 
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+      with:
+        ref: dev 
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build Java jar
+      run: | 
+        mvn clean install
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Move files and compress
+      run: |
+        mkdir -p noobzz_jars
+        cp ../noobzz-gateway/target/noobzz-gateway.jar ./noobzz_jars
+        cp ../noobzz-auth/target/noobzz-auth.jar ./noobzz_jars
+        cp ../noobzz-visual/noobzz-monitor/target/noobzz-visual-monitor.jar  ./noobzz_jars
+        cp ../noobzz-modules/noobzz-system/target/noobzz-modules-system.jar ./noobzz_jars
+        tar -zcvf  noobzz_jars.tar.gz noobzz_jars/
+    - name: Scp file to tencent
+      uses: appleboy/scp-action@master
+      with:
+        host: 175.178.240.180
+        username: root
+        password: zzj@2022
+        port: 22
+        source: "noobzz_jars.tar.gz"
+        target: "/www/wwwroot/"
+    - name: Distribution and backup
+      uses: appleboy/ssh-action@master
+      with:
+        host: 175.178.240.180
+        username: root
+        password: zzj@2022
+        port: 22
+        script: |
+          cd /www/wwwroot/
+          tar -zxvf /www/wwwroot/noobzz_jars.tar.gz
