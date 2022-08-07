@@ -27,10 +27,10 @@ jobs:
     - name: Move files and compress
       run: |
         mkdir -p noobzz_jars
-        cp ../noobzz-gateway/target/noobzz-gateway.jar ./noobzz_jars
-        cp ../noobzz-auth/target/noobzz-auth.jar ./noobzz_jars
-        cp ../noobzz-visual/noobzz-monitor/target/noobzz-visual-monitor.jar  ./noobzz_jars
-        cp ../noobzz-modules/noobzz-system/target/noobzz-modules-system.jar ./noobzz_jars
+        mv ./noobzz-gateway/target/noobzz-gateway.jar ./noobzz_jars
+        mv ./noobzz-auth/target/noobzz-auth.jar ./noobzz_jars
+        mv ./noobzz-visual/noobzz-monitor/target/noobzz-visual-monitor.jar  ./noobzz_jars
+        mv ./noobzz-modules/noobzz-system/target/noobzz-modules-system.jar ./noobzz_jars
         tar -zcvf  noobzz_jars.tar.gz noobzz_jars/
     - name: Scp file to tencent
       uses: appleboy/scp-action@master
