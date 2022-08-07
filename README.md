@@ -1,1 +1,1 @@
-noobzz-blog-V1
+noobzz-blog-V2
