@@ -1,0 +1,3 @@
+cn.noobzz.system.api.factory.RemoteUserFallbackFactory
+cn.noobzz.system.api.factory.RemoteLogFallbackFactory
+cn.noobzz.system.api.factory.RemoteFileFallbackFactory
