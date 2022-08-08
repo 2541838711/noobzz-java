@@ -35,19 +35,19 @@ jobs:
     - name: Scp file to tencent
       uses: appleboy/scp-action@master
       with:
-        host: 175.178.240.180
-        username: root
-        password: zzj@2022
-        port: 22
+        host: ${{ secrets.DOCKER_IP }}
+        username: ${{ secrets.DOCKER_ID }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        port: ${{ secrets.DOCKER_PORT }}
         source: "noobzz_jars.tar.gz"
         target: "/www/wwwroot/"
     - name: Distribution and backup
       uses: appleboy/ssh-action@master
       with:
-        host: 175.178.240.180
-        username: root
-        password: zzj@2022
-        port: 22
+        host: ${{ secrets.DOCKER_IP }}
+        username: ${{ secrets.DOCKER_ID }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        port: ${{ secrets.DOCKER_PORT }}
         script: |
           cd /www/wwwroot/
           tar -zxvf /www/wwwroot/noobzz_jars.tar.gz
